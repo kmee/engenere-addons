@@ -167,7 +167,7 @@ class Danfe(object):
             el_det = oXML.findall(".//{http://www.portalfiscal.inf.br/nfe}det")
 
             # Declaring variable to prevent future errors
-            nId = 0
+            _nId = 0
 
             if el_det is not None:
                 list_desc = []
@@ -188,8 +188,8 @@ class Danfe(object):
                     list_cod_prod.append(list_cProd)
 
                 # Calculando nr. aprox. de páginas
-                if nId > 25:
-                    self.NrPages += math.ceil((nId - 25) / 70)
+                if _nId > 25:
+                    self.NrPages += math.ceil((_nId - 25) / 70)
 
             if recibo:
                 self.recibo_entrega(oXML=oXML, timezone=timezone)
@@ -207,7 +207,7 @@ class Danfe(object):
             index = self.produtos(
                 oXML=oXML,
                 el_det=el_det,
-                max_index=nId,
+                max_index=_nId,
                 list_desc=list_desc,
                 list_cod_prod=list_cod_prod,
             )
@@ -216,7 +216,7 @@ class Danfe(object):
             self.adicionais(oXML=oXML, tamanho_diminuir=tamanho_ocupado)
 
             # Gera o restante das páginas do XML
-            while index < nId:
+            while index < _nId:
                 if index < 0:
                     index = index * -1
                 self.newpage()
@@ -225,7 +225,7 @@ class Danfe(object):
                     oXML=oXML,
                     el_det=el_det,
                     index=index,
-                    max_index=nId,
+                    max_index=_nId,
                     list_desc=list_desc,
                     nHeight=77,
                     list_cod_prod=list_cod_prod,
