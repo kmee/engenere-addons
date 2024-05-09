@@ -1,7 +1,7 @@
 # Copyright (C) 2022-Today - Engenere (<https://engenere.one>).
 # @author Antônio S. Pereira Neto <neto@engenere.one>
 
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class AccountMove(models.Model):
@@ -16,6 +16,7 @@ class AccountMove(models.Model):
         store=True,
     )
 
+    @api.depends("amount_total", "amount_tax_withholding")
     def _compute_total_faturado(self):
         for move in self:
             # consideramos o tatal faturado o amount_total nativo

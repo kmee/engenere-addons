@@ -1,4 +1,10 @@
-14.0.0.0.0 (2023-07-25)
+14.0.1.0.1 (2023-07-25)
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-* [NEW] Primeira versão
+* [FIX] Correção do campo "Total Faturado" que não estava sendo calculado na Fatura.
+
+
+14.0.1.0.0 (2023-07-25)
+~~~~~~~~~~~~~~~~~~~~~~~
+
+* [ADD] Primeira versão

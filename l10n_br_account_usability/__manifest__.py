@@ -10,7 +10,7 @@
     "author": "Engenere",
     "maintainers": ["antoniospneto", "felipemotter"],
     "website": "https://engenere.one",
-    "version": "14.0.0.0.0",
+    "version": "14.0.1.0.1",
     "development_status": "Beta",
     "depends": [
         "l10n_br_account",
