@@ -59,17 +59,10 @@ class ImportAddition(models.Model):
 
     product_description = fields.Char()
 
-    product_qty = fields.Float(
-        digits=(14, 0)
-    )
+    product_qty = fields.Float(digits=(14, 0))
 
     product_uom = fields.Char()
 
-    product_price_unit = fields.Float(
-        digits=(14, 2)
-    )
+    product_price_unit = fields.Float(digits=(14, 2))
 
-    uom_id = fields.Many2one(
-        "uom.uom", string="Unit of Measure"
-    )
-
+    uom_id = fields.Many2one("uom.uom", string="Unit of Measure")

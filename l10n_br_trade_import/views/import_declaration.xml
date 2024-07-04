@@ -26,7 +26,7 @@
                 <field name="intermediary_type" />
                 <field name="third_party_partner_id" />
                 <field name="afrmm_value" />
-                <field name="state" widget="badge"/>
+                <field name="state" widget="badge" />
             </tree>
         </field>
     </record>
@@ -37,9 +37,21 @@
         <field name="arch" type="xml">
             <form string="Import Declaration">
                 <header>
-                    <button name="action_confirm" string="Confirm" type="object" class="oe_highlight" state="draft,cancel"/>
-                    <button name="action_generate_invoice" string="Generate Invoice" type="object" class="oe_highlight" state="done"/>
-                    <field name="state" widget="statusbar"/>
+                    <button
+            name="action_confirm"
+            string="Confirm"
+            type="object"
+            class="oe_highlight"
+            state="draft,cancel"
+          />
+                    <button
+            name="action_generate_invoice"
+            string="Generate Invoice"
+            type="object"
+            class="oe_highlight"
+            state="done"
+          />
+                    <field name="state" widget="statusbar" />
                 </header>
                 <sheet>
                     <group col="2">
@@ -61,20 +73,32 @@
               />
                             <field name="exporting_partner_id" />
                         </group>
-                        <group name="other_info" >
+                        <group name="other_info">
                             <field name="document_date" />
                             <field name="account_move_id" />
-                            <field name="declaration_file"/>
-                            <field name="is_imported"/>
+                            <field name="declaration_file" />
+                            <field name="is_imported" />
                         </group>
                     </group>
                     <notebook>
                         <page name="customs_clearance" string="Other Info">
                             <group>
-                                <group name="customs_clearance" string="Customs Clearance">
-                                    <field name="customs_clearance_location" string="Location"/>
-                                    <field name="customs_clearance_state_id" string="State" />
-                                    <field name="customs_clearance_date" string="Date" />
+                                <group
+                  name="customs_clearance"
+                  string="Customs Clearance"
+                >
+                                    <field
+                    name="customs_clearance_location"
+                    string="Location"
+                  />
+                                    <field
+                    name="customs_clearance_state_id"
+                    string="State"
+                  />
+                                    <field
+                    name="customs_clearance_date"
+                    string="Date"
+                  />
                                 </group>
                             </group>
                         </page>
