@@ -8,6 +8,10 @@ class ImportAddition(models.Model):
     _name = "l10n_br_trade_import.addition"
     _description = "Import Addition"
 
+    is_imported = fields.Boolean(
+        related="import_declaration_id.is_imported",
+    )
+
     import_declaration_id = fields.Many2one(
         comodel_name="l10n_br_trade_import.declaration",
         string="Import Declaration",
@@ -47,3 +51,25 @@ class ImportAddition(models.Model):
     )
 
     drawback = fields.Char(string="Drawback", help="Drawback concession act number")
+
+    product_id = fields.Many2one(
+        comodel_name="product.product",
+        string="Product",
+    )
+
+    product_description = fields.Char()
+
+    product_qty = fields.Float(
+        digits=(14, 0)
+    )
+
+    product_uom = fields.Char()
+
+    product_price_unit = fields.Float(
+        digits=(14, 2)
+    )
+
+    uom_id = fields.Many2one(
+        "uom.uom", string="Unit of Measure"
+    )
+

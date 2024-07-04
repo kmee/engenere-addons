@@ -18,6 +18,9 @@
     ],
     "data": [
         "security/ir.model.access.csv",
+
+        "wizards/l10n_br_trade_import_declaration_wizard.xml",
+
         "views/menu.xml",
         "views/import_declaration.xml",
         "views/import_addition.xml",
