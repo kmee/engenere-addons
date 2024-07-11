@@ -253,6 +253,8 @@ class ImportDeclaration(models.Model):
             lista_mercadorias = []
 
             for adicao in declaracoes.declaracao_importacao.adicao:
+                manufacturer = {}
+
                 if adicao.fabricante_nome:
 
                     manufacturer_id = self.env["res.partner"].search(
@@ -269,19 +271,24 @@ class ImportDeclaration(models.Model):
                             }
                         )
 
-                for mercadoria in adicao.mercadoria:
-                    lista_mercadorias.append(
+                    manufacturer.update(
                         {
-                            # "import_declaration_id": self.id,
-                            "addition_number": adicao.numero_adicao,
-                            "addtion_sequence": int(mercadoria.numero_sequencial_item),
-                            "product_description": mercadoria.descricao_mercadoria,
-                            "product_qty": int(mercadoria.quantidade) / 100,
-                            "product_uom": mercadoria.unidade_medida,
-                            "product_price_unit": int(mercadoria.valor_unitario) / 100,
                             "manufacturer_id": manufacturer_id.id,
                         }
                     )
+
+                for mercadoria in adicao.mercadoria:
+                    vals = {
+                        # "import_declaration_id": self.id,
+                        "addition_number": adicao.numero_adicao,
+                        "addtion_sequence": int(mercadoria.numero_sequencial_item),
+                        "product_description": mercadoria.descricao_mercadoria,
+                        "product_qty": int(mercadoria.quantidade) / 100,
+                        "product_uom": mercadoria.unidade_medida,
+                        "product_price_unit": int(mercadoria.valor_unitario) / 100,
+                    }
+                    vals.update(manufacturer)
+                    lista_mercadorias.append(vals)
 
             document_date = datetime.strptime(
                 str(declaracoes.declaracao_importacao.data_registro), "%Y%m%d"
@@ -330,5 +337,7 @@ class ImportDeclaration(models.Model):
                 vals["exporting_partner_id"] = exporting_partner_id.id
             if declaracoes.declaracao_importacao.via_transporte_nome == "RODOVIÁRIA":
                 vals["transportation_type"] = "road"
+            if declaracoes.declaracao_importacao.via_transporte_nome == "MARÍTIMA":
+                vals["transportation_type"] = "maritime"
 
             return vals

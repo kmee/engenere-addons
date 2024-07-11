@@ -5,6 +5,60 @@ from xsdata.models.datatype import XmlPeriod
 
 
 @dataclass
+class Acrescimo:
+    class Meta:
+        name = "acrescimo"
+
+    codigo_acrescimo: Optional[int] = field(
+        default=None,
+        metadata={
+            "name": "codigoAcrescimo",
+            "type": "Element",
+            "required": True,
+        },
+    )
+    denominacao: Optional[str] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "required": True,
+        },
+    )
+    moeda_negociada_codigo: Optional[int] = field(
+        default=None,
+        metadata={
+            "name": "moedaNegociadaCodigo",
+            "type": "Element",
+            "required": True,
+        },
+    )
+    moeda_negociada_nome: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "moedaNegociadaNome",
+            "type": "Element",
+            "required": True,
+        },
+    )
+    valor_moeda_negociada: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "valorMoedaNegociada",
+            "type": "Element",
+            "required": True,
+        },
+    )
+    valor_reais: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "valorReais",
+            "type": "Element",
+            "required": True,
+        },
+    )
+
+
+@dataclass
 class Armazem:
     class Meta:
         name = "armazem"
@@ -312,6 +366,13 @@ class Adicao:
     class Meta:
         name = "adicao"
 
+    acrescimo: Optional[Acrescimo] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "required": True,
+        },
+    )
     cide_valor_aliquota_especifica: Optional[str] = field(
         default=None,
         metadata={
@@ -1451,6 +1512,14 @@ class DeclaracaoImportacao:
             "required": True,
         },
     )
+    conhecimento_carga_id_master: Optional[int] = field(
+        default=None,
+        metadata={
+            "name": "conhecimentoCargaIdMaster",
+            "type": "Element",
+            "required": True,
+        },
+    )
     conhecimento_carga_tipo_codigo: Optional[int] = field(
         default=None,
         metadata={
@@ -1927,6 +1996,14 @@ class DeclaracaoImportacao:
             "required": True,
         },
     )
+    via_transporte_nome_veiculo: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "viaTransporteNomeVeiculo",
+            "type": "Element",
+            "required": True,
+        },
+    )
     via_transporte_numero_veiculo: Optional[str] = field(
         default=None,
         metadata={
@@ -1939,6 +2016,14 @@ class DeclaracaoImportacao:
         default=None,
         metadata={
             "name": "viaTransportePaisTransportadorCodigo",
+            "type": "Element",
+            "required": True,
+        },
+    )
+    via_transporte_pais_transportador_nome: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "viaTransportePaisTransportadorNome",
             "type": "Element",
             "required": True,
         },
