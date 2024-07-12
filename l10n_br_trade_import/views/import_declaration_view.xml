@@ -81,8 +81,12 @@
                         </group>
                         <group name="other_info">
                             <field name="document_date" />
-                            <field name="account_move_id" />
-                            <field name="fiscal_operation_id" />
+                            <field name="company_id" />
+                            <field name="company_currency_id" />
+                            <field name="trade_currency_id" />
+                            <field name="amount_reais" />
+                            <field name="amount_currency" />
+                            <field name="currency_rate" />
                         </group>
                     </group>
                     <notebook>
@@ -105,6 +109,7 @@
                                 </tree>
                             </field>
                         </page>
+
                         <page name="customs_clearance" string="Other Info">
                             <group>
                                 <group
@@ -132,6 +137,12 @@
                         </page>
                         <page name="notes" string="Notes">
                             <field name="additional_information" />
+                        </page>
+                        <page name="accounting" string="Accounting">
+                            <group>
+                                <field name="account_move_id" />
+                                <field name="fiscal_operation_id" />
+                            </group>
                         </page>
                     </notebook>
                 </sheet>

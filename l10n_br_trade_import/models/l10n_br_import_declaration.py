@@ -165,6 +165,35 @@ class ImportDeclaration(models.Model):
         tracking=True,
     )
 
+    amount_currency = fields.Monetary(
+        string="Amount (Trade Currency)",
+        currency_field="trade_currency_id",
+    )
+
+    amount_reais = fields.Monetary(
+        string="Amount (BRL)",
+        currency_field="company_currency_id",
+    )
+
+    trade_currency_id = fields.Many2one(
+        "res.currency",
+    )
+
+    currency_rate = fields.Float(
+        digits=(12, 6),
+    )
+
+    company_id = fields.Many2one(
+        "res.company",
+        default=lambda self: self.env.company,
+    )
+
+    company_currency_id = fields.Many2one(
+        "res.currency",
+        related="company_id.currency_id",
+        readonly=True,
+    )
+
     additional_information = fields.Text()
 
     @api.constrains("intermediary_type", "third_party_partner_id")
@@ -253,6 +282,20 @@ class ImportDeclaration(models.Model):
             lista_mercadorias = []
 
             for adicao in declaracoes.declaracao_importacao.adicao:
+
+                trade_currency_id = self.env["res.currency"].search(
+                    [("siscomex_code", "=", adicao.condicao_venda_moeda_codigo)],
+                    limit=1,
+                )
+
+                amount_reais = int(adicao.condicao_venda_valor_reais) / 100
+                amount_currency = int(adicao.condicao_venda_valor_moeda) / 100
+
+                if amount_currency and amount_reais:
+                    currency_rate = amount_reais / amount_currency
+                else:
+                    currency_rate = 0
+
                 manufacturer = {}
 
                 if adicao.fabricante_nome:
@@ -283,9 +326,11 @@ class ImportDeclaration(models.Model):
                         "addition_number": adicao.numero_adicao,
                         "addtion_sequence": int(mercadoria.numero_sequencial_item),
                         "product_description": mercadoria.descricao_mercadoria,
-                        "product_qty": int(mercadoria.quantidade) / 100,
+                        "product_qty": int(mercadoria.quantidade) / 100000,
                         "product_uom": mercadoria.unidade_medida,
-                        "product_price_unit": int(mercadoria.valor_unitario) / 100,
+                        "product_price_unit": int(mercadoria.valor_unitario)
+                        / 100000
+                        / currency_rate,
                     }
                     vals.update(manufacturer)
                     lista_mercadorias.append(vals)
@@ -302,6 +347,12 @@ class ImportDeclaration(models.Model):
                 "additional_information": (
                     declaracoes.declaracao_importacao.informacao_complementar
                 ),
+                "amount_reais": amount_reais,
+                "amount_currency": amount_currency,
+                "currency_rate": currency_rate,
+                "trade_currency_id": trade_currency_id.id
+                if trade_currency_id
+                else False,
                 # "customs_clearance_location":
                 #   declaracoes.declaracao_importacao.local_desembaraco,
                 # "customs_clearance_state_id":

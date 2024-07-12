@@ -23,12 +23,15 @@
         "wizards/l10n_br_trade_import_declaration_wizard.xml",
         #
         "views/menu.xml",
-        "views/import_declaration.xml",
-        "views/import_addition.xml",
-        "views/account_move_views.xml",
+        "views/import_declaration_view.xml",
+        "views/import_addition_view.xml",
+        "views/account_move_view.xml",
         "views/nfe_adi_view.xml",
         "views/nfe_di_view.xml",
         "views/nfe_document_view.xml",
+        "views/res_currency_view.xml",
+        #
+        "data/res_currency_data.xml",
     ],
     "installable": True,
     "external_dependencies": {
