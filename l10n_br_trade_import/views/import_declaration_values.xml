@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2024 KMEE
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="l10n_br_trade_import_declaration_values_tree_view">
+        <field name="model">l10n_br_trade_import.declaration.values</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="import_declaration_id" invisible="1" />
+                <field name="trade_currency_id" invisible="1" />
+                <field name="company_currency_id" invisible="1" />
+                <field name="import_addition_id" />
+                <field name="codigo" />
+                <field name="denominacao" />
+                <field name="amount_currency" />
+                <field name="amount_brl" />
+                <field name="currency_rate" />
+            </tree>
+        </field>
+    </record>
+
+</odoo>

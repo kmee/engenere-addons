@@ -17,15 +17,17 @@
         <field name="model">l10n_br_trade_import.declaration</field>
         <field name="arch" type="xml">
             <tree>
+                <field name="company_id" />
                 <field name="document_number" />
                 <field name="document_date" />
-                <field name="customs_clearance_location" />
+                <field name="account_move_id" />
+                <!-- <field name="customs_clearance_location" />
                 <field name="customs_clearance_state_id" />
                 <field name="customs_clearance_date" />
                 <field name="transportation_type" />
                 <field name="intermediary_type" />
                 <field name="third_party_partner_id" />
-                <field name="afrmm_value" />
+                <field name="afrmm_value" /> -->
                 <field name="state" widget="badge" />
             </tree>
         </field>
@@ -57,61 +59,35 @@
                         type="object"
                         states="open"
                     />
+                    <button
+                        name="button_compute_average"
+                        type="object"
+                        string="Compute"
+                        states="open"
+                    />
                     <field name="state" widget="statusbar" />
                 </header>
                 <sheet>
                     <group col="2">
                         <group name="main">
+                            <field name="company_id" />
                             <field name="document_number" />
-                            <field name="intermediary_type" />
-                            <field
-                                name="third_party_partner_id"
-                                attrs="{
-                                    'required': [('intermediary_type','in',('conta_ordem','encomenda'))],
-                                    'invisible': [('intermediary_type','not in',('conta_ordem','encomenda'))]}"
-                            />
-                            <field name="transportation_type" />
-                            <field
-                                name="afrmm_value"
-                                attrs="{
-                                    'required': [('transportation_type','=','maritime')],
-                                    'invisible': [('transportation_type','!=','maritime')]}"
-                            />
-                            <field name="exporting_partner_id" />
+                            <field name="document_date" />
                         </group>
                         <group name="other_info">
-                            <field name="document_date" />
-                            <field name="company_id" />
-                            <field name="company_currency_id" />
-                            <field name="trade_currency_id" />
-                            <field name="amount_reais" />
-                            <field name="amount_currency" />
-                            <field name="currency_rate" />
+                            <field name="fiscal_operation_id" />
+                            <field name="account_move_id" />
                         </group>
                     </group>
                     <notebook>
-                        <page name="additions" string="Additions">
-                            <field name="addition_ids" nolabel="1">
-                                <tree editable="bottom">
-                                    <field name="addition_number" string="nº" />
-                                    <field name="addtion_sequence" string="Item" />
-                                    <field name="product_id" width="300px" />
-                                    <field
-                                        name="product_description"
-                                        string="Descrição"
-                                    />
-                                    <field name="product_qty" string="Qty" />
-                                    <field name="product_uom" string="Uom" />
-                                    <field name="product_price_unit" string="Price" />
-                                    <field name="manufacturer_id" />
-                                    <!-- <field name="discount_value" /> -->
-                                    <!-- <field name="drawback" /> -->
-                                </tree>
-                            </field>
-                        </page>
-
-                        <page name="customs_clearance" string="Other Info">
+                        <page name="information" string="Information">
                             <group>
+                                <group name="general_info" string="General">
+                                    <field name="third_party_partner_id" />
+                                    <field name="exporting_partner_id" />
+                                    <field name="transportation_type" />
+                                    <field name="intermediary_type" widget="radio" />
+                                </group>
                                 <group
                                     name="customs_clearance"
                                     string="Customs Clearance"
@@ -129,19 +105,79 @@
                                         string="Date"
                                     />
                                 </group>
-                                <group>
-                                    <field name="declaration_file" />
-                                    <field name="is_imported" />
-                                </group>
                             </group>
+                        </page>
+                        <page name="additions" string="Additions">
+                            <field name="addition_ids" nolabel="1" />
+                        </page>
+                        <page name="values" string="Add/Ded Values">
+                            <field name="value_ids" nolabel="1" />
+                        </page>
+                        <page name="lines" string="Products">
+                            <field name="line_ids" nolabel="1" />
                         </page>
                         <page name="notes" string="Notes">
                             <field name="additional_information" />
                         </page>
-                        <page name="accounting" string="Accounting">
+                        <page name="totals" string="Totals">
                             <group>
-                                <field name="account_move_id" />
-                                <field name="fiscal_operation_id" />
+                                <group>
+                                    <field name="company_currency_id" />
+                                    <field name="currency_rate" />
+                                </group>
+                                <group>
+                                    <field name="trade_currency_id" />
+                                </group>
+                            </group>
+                            <notebook>
+                                <page name="totals_brl" string="BRL">
+                                    <group>
+                                        <group>
+                                            <field name="amount_freight_brl" />
+                                            <field name="amount_insurance_brl" />
+                                            <field name="amount_other_costs_brl" />
+                                        </group>
+                                        <group>
+                                            <field name="afrmm_value" />
+                                            <field name="amount_reais" />
+                                            <field name="amount_currency" />
+                                        </group>
+                                    </group>
+                                </page>
+                                <page name="totals" string="Trade Currency">
+                                    <group>
+                                        <group>
+                                            <field
+                                                name="freight_currency_id"
+                                                invisible="1"
+                                            />
+                                            <field
+                                                name="insurance_currency_id"
+                                                invisible="1"
+                                            />
+                                            <field
+                                                name="other_costs_currency_id"
+                                                invisible="1"
+                                            />
+                                        </group>
+                                        <group>
+                                            <field name="amount_freight" />
+                                            <field name="amount_insurance" />
+                                            <field name="amount_other_costs" />
+                                        </group>
+                                    </group>
+                                </page>
+                                <page name="other" string="Other">
+                                    <field name="other_costs_ids" nolabel="1" />
+                                </page>
+                            </notebook>
+                        </page>
+                        <page name="other_info" string="Other Info">
+                            <group>
+                                <group>
+                                    <field name="declaration_file" />
+                                    <field name="is_imported" />
+                                </group>
                             </group>
                         </page>
                     </notebook>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2024 KMEE
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record
+        model="ir.ui.view"
+        id="l10n_br_trade_import_declaration_other_costs_tree_view"
+    >
+        <field name="model">l10n_br_trade_import.declaration.other_costs</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="import_declaration_id" invisible="1" />
+                <field name="currency_id" invisible="1" />
+                <field name="name" />
+                <field name="amount" sum="Amount" />
+                <field name="is_rated" />
+                <field name="amount_other" sum="Other" />
+            </tree>
+        </field>
+    </record>
+
+</odoo>

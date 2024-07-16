@@ -16,15 +16,23 @@
         "l10n_br_nfe",
         "l10n_br_account",
     ],
-    "demo": [],
+    "demo": [
+        "demo/l10n_br_trade_import_declaration_values.xml",
+        "demo/l10n_br_trade_import_declaration_line.xml",
+    ],
     "data": [
         "security/ir.model.access.csv",
         #
         "wizards/l10n_br_trade_import_declaration_wizard.xml",
         #
         "views/menu.xml",
+        #
+        "views/import_declaration_other_costs.xml",
+        "views/import_declaration_values.xml",
         "views/import_declaration_view.xml",
+        "views/import_declaration_line_view.xml",
         "views/import_addition_view.xml",
+        #
         "views/account_move_view.xml",
         "views/nfe_adi_view.xml",
         "views/nfe_di_view.xml",

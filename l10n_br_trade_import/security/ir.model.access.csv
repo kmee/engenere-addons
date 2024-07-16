@@ -2,3 +2,6 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 a1,a1,model_l10n_br_trade_import_declaration,account.group_account_invoice,1,1,1,1
 a2,a2,model_l10n_br_trade_import_addition,account.group_account_invoice,1,1,1,1
 a3,a3,model_l10n_br_trade_import_declaration_wizard,account.group_account_invoice,1,1,1,1
+a4,a4,model_l10n_br_trade_import_declaration_line,account.group_account_invoice,1,1,1,1
+a5,a5,model_l10n_br_trade_import_declaration_values,account.group_account_invoice,1,1,1,1
+a6,a6,model_l10n_br_trade_import_declaration_other_costs,account.group_account_invoice,1,1,1,1

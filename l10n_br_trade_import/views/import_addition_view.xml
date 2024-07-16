@@ -9,7 +9,6 @@
                 <field name="import_declaration_number" />
                 <field name="import_declaration_date" />
                 <field name="addition_number" />
-                <field name="addtion_sequence" />
                 <field name="manufacturer_id" />
             </search>
         </field>
@@ -19,13 +18,16 @@
         <field name="name">l10n_br_trade_import.addition.tree</field>
         <field name="model">l10n_br_trade_import.addition</field>
         <field name="arch" type="xml">
-            <tree>
-                <field name="import_declaration_number" />
-                <field name="import_declaration_date" />
-                <field name="addition_number" />
-                <field name="addtion_sequence" />
+            <tree editable="bottom">
+                <field name="addition_number" string="nº" />
                 <field name="manufacturer_id" />
-                <field name="discount_value" />
+                <field name="trade_currency_id" invisible="1" />
+                <field name="company_currency_id" invisible="1" />
+                <field name="amount_currency" />
+                <field name="amount_brl" />
+                <field name="currency_rate" />
+                <field name="amount_addition_deduction" />
+                <field name="amount_addition_deduction_brl" />
                 <field name="drawback" />
             </tree>
         </field>
@@ -37,13 +39,55 @@
         <field name="arch" type="xml">
             <form string="Import Addition">
                 <sheet>
-                    <group name="main">
-                        <field name="import_declaration_id" />
-                        <field name="addition_number" />
-                        <field name="addtion_sequence" />
-                        <field name="manufacturer_id" />
-                        <field name="discount_value" />
-                        <field name="drawback" />
+                    <group>
+                        <group name="main">
+                            <field name="addition_number" string="nº" />
+                            <field name="manufacturer_id" />
+                            <field name="trade_currency_id" invisible="1" />
+                            <field name="drawback" />
+                        </group>
+                        <group>
+                            <field name="amount_currency" />
+                            <field name="company_currency_id" invisible="1" />
+                            <field name="amount_brl" />
+                            <field name="currency_rate" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="values" string="Values">
+                            <field name="value_ids" nolabel="1" />
+                        </page>
+                        <page name="lines" string="Products">
+                            <field name="line_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="addition_number" string="nº" />
+                                    <field name="addtion_sequence" string="sº" />
+                                    <field name="trade_currency_id" invisible="1" />
+                                    <field name="company_currency_id" invisible="1" />
+                                    <field name="product_id" />
+                                    <field name="uom_id" />
+                                    <field
+                                        name="product_description"
+                                        string="Descrição"
+                                    />
+                                    <field name="product_uom" string="UOM" />
+                                    <field name="product_qty" string="Qty" />
+                                    <field name="price_unit" string="Price Unit" />
+                                    <field name="amount_subtotal" sum="Total" />
+                                    <field name="price_unit_brl" string="Price Unit" />
+                                    <field name="average_addition_deduction_brl" />
+                                    <field
+                                        name="amount_brl_subtotal"
+                                        sum="Total (BRL)"
+                                    />
+                                    <field name="final_price_unit_brl" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <group>
+                        <field name="amount_addition_deduction" />
+                        <field name="amount_addition_deduction_brl" />
                     </group>
                 </sheet>
             </form>
